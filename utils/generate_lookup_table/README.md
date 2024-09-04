@@ -28,20 +28,20 @@
 
 Tested with zig version 0.13.0 on Linux Fedora 39.
 
-### 📌 About
+### About
 
 Generates for a number of `bits`, the lookup table used in `count_digit_lookup` algorithm.
 
 Supported bits range, less than 1024.
 
-### 📌 Implementation
+### Implementation
 
 A zig language version of [generate.py](https://github.com/lemire/Code-used-on-Daniel-Lemire-s-blog/blob/master/2021/06/03/generate.py) file.
 
 As an example usage, `demo/generate.zig` uses generator and saves the results
 to `LookupTable.txt` file, in project root.
 
-### 📌 Examples
+### Examples
 
 ```zig
 const std = @import("std");
