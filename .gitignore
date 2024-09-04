@@ -1,0 +1,30 @@
+#& VisualStudioCode
+.vscode/*
+!.vscode/*.code-snippets
+!.vscode/c_cpp_properties.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+# Local History for Visual Studio Code
+.history/
+# Built Visual Studio Code Extensions
+*.vsix
+# VisualStudioCode Patch, ignore all local history of files
+.history
+.ionide
+
+#& Zig programming language
+.zig-cache/
+.zig-out/
+zig-cache/
+zig-out/
+build/
+build-*/
+docgen_tmp/
+
+#& Project specific
+.archive/
+
+# Generated files
+utils/generate_lookup_table/LookupTable.txt
