@@ -1,0 +1,24 @@
+.{
+    .name = "algore",
+    .version = "0.1.0",
+    //.minimum_zig_version = "0.13.0",
+
+    .dependencies = .{
+        //.example = .{
+        //    .url = "https://example.com/foo.tar.gz",
+        //    .hash = "...",
+        //    .path = "foo",
+        //    .lazy = false,
+        //},
+    },
+
+    .paths = .{
+        "bench",
+        "demo",
+        "src",
+        "build.zig",
+        "build.zig.zon",
+        "LICENSE",
+        "README.md",
+    },
+}
