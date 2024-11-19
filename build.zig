@@ -1,25 +1,29 @@
+//:========================================================================
+//: Licensed under the [MIT License](LICENSE).
 //:
-//: Important
+//: Tested with zig version 0.13.0 on Linux Fedora 39.
 //:
-//: * Step `cov` assumes that [kcov](https://github.com/SimonKagstrom/kcov) is installed.
+//#
+//# WARNING
+//#   Be very careful with `rmv` step, the `setupRemove` does not check
+//#   arguments, it just silently removes any user provided paths and can
+//#   lead to unwanted results.
+//#
 //:
-//: * Use a live http server to see the code coverage report (zig-out/cov/index.html) and
-//:   documentation (zig-out/doc/index.html).
-//:
+//: IMPORTANT
+//: * Step `cov` assumes that [kcov](https://github.com/SimonKagstrom/kcov)
+//:   is installed.
+//: * Use a live http server to see the code coverage report and docs
+//:   (zig-out/cov/index.html, zig-out/doc/index.html).
 //: * Steps `run`, `fmt` and `rmv` can be used with arguments, like this
 //:     `zig build <step> -- arg1 arg2 ...`
-//:   where arguments are relative paths to the project root, `build.zig` parent folder.
+//:   where arguments are relative paths to the project folder.
 //:     eg. `zig build rmv -- zig-out/cov zig-out/doc/index.html`
-//:
 //: * Without arguments, step:
 //:   * `run` does nothing, it must be used with file paths
 //:   * `fmt` formats the files and folders defined in `setupFormat()`
 //:   * `rmv` removes the zig-cache and zig-out folders
-//:
-//# WARNING
-//#   Be very careful with `rmv` step, the `setupRemove()` does not check arguments, it just
-//#   silently removes any user provided paths and can lead to unwanted results.
-//#
+//:========================================================================
 
 const std = @import("std");
 
@@ -34,7 +38,7 @@ const Config = struct {
 
 pub fn build(b: *std.Build) void {
     // `name` is the name of project's root and entry file
-    const name = std.fs.path.basename(b.build_root.path.?);
+    const name = "algore";
 
     // build configuration
     const cfg = Config{
@@ -91,7 +95,7 @@ pub fn build(b: *std.Build) void {
 }
 
 fn setupModule(b: *std.Build, cfg: Config) *std.Build.Module {
-    return b.addModule(
+    const mod = b.addModule(
         cfg.name,
         .{
             .target = cfg.target,
@@ -99,6 +103,18 @@ fn setupModule(b: *std.Build, cfg: Config) *std.Build.Module {
             .root_source_file = cfg.root_source_file,
         },
     );
+
+    for (b.available_deps) |dep| {
+        mod.addImport(dep[0], b.dependency(
+            dep[0],
+            .{
+                .target = cfg.target,
+                .optimize = cfg.optimize,
+            },
+        ).module(dep[0]));
+    }
+
+    return mod;
 }
 
 fn setupStaticLibrary(b: *std.Build, cfg: Config) *std.Build.Step.Compile {
@@ -114,6 +130,16 @@ fn setupStaticLibrary(b: *std.Build, cfg: Config) *std.Build.Step.Compile {
         .root_source_file = cfg.root_source_file,
         .version = cfg.version,
     });
+
+    for (b.available_deps) |dep| {
+        lib.root_module.addImport(dep[0], b.dependency(
+            dep[0],
+            .{
+                .target = cfg.target,
+                .optimize = cfg.optimize,
+            },
+        ).module(dep[0]));
+    }
 
     const lib_install = b.addInstallArtifact(
         lib,
@@ -137,6 +163,16 @@ fn setupTest(b: *std.Build, cfg: Config) *std.Build.Step.Compile {
         .root_source_file = cfg.root_source_file,
         .version = cfg.version,
     });
+
+    for (b.available_deps) |dep| {
+        tst.root_module.addImport(dep[0], b.dependency(
+            dep[0],
+            .{
+                .target = cfg.target,
+                .optimize = cfg.optimize,
+            },
+        ).module(dep[0]));
+    }
 
     const tst_run = b.addRunArtifact(tst);
     tst_step.dependOn(&tst_run.step);
@@ -214,6 +250,16 @@ fn setupRun(b: *std.Build, cfg: Config, mod: *std.Build.Module) void {
             });
             exe.root_module.addImport(cfg.name, mod);
 
+            for (b.available_deps) |dep| {
+                exe.root_module.addImport(dep[0], b.dependency(
+                    dep[0],
+                    .{
+                        .target = cfg.target,
+                        .optimize = cfg.optimize,
+                    },
+                ).module(dep[0]));
+            }
+
             const exe_install = b.addInstallArtifact(
                 exe,
                 .{},
@@ -240,6 +286,7 @@ fn setupFormat(b: *std.Build) void {
             "bench",
             "demo",
             "src",
+            "utils",
             "build.zig",
             "build.zig.zon",
         };
