@@ -25,6 +25,4 @@ docgen_tmp/
 
 #& Project specific
 .archive/
-
-# Generated files
-utils/generate_lookup_table/LookupTable.txt
+demo.txt
