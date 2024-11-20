@@ -18,7 +18,7 @@
         },
 
         .singly_linked_list = .{
-            .url = "https://github.com/7R35C0/singly_linked_list/archive/41b8640280c4d894194cddf4400cd31490a5141c.tar.gz",
+            .url = "https://github.com/7R35C0/singly_linked_list/archive/e7538c4720863198d016ddfd4e792f66d475b7c1.tar.gz",
             .hash = "1220a5b1891b674d554350ef0ff25e0f26805072361f58f8cf49c739e2d73fb6f0d4",
             // .path = "foo",
             // .lazy = false,
