@@ -11,15 +11,15 @@
 
     .dependencies = .{
         .digit = .{
-            .url = "https://github.com/7R35C0/digit/archive/79be5c8a76c2391aa6f6ffabc7c968c7c16a3931.tar.gz",
-            .hash = "12204543bbbb5aa207e8a95bf9b73051e7c4862a67de24546b80c7a77432ca588d3c",
+            .url = "https://github.com/7R35C0/digit/archive/37a5017c034f07c0df38f82944466345382a4cce.tar.gz",
+            .hash = "1220408268f82f144a2e5bc70e4be5a6d708a4ee9a0c267a755c1fbc05e65c35cc22",
             // .path = "foo",
             // .lazy = false,
         },
 
         .singly_linked_list = .{
-            .url = "https://github.com/7R35C0/singly_linked_list/archive/71af219dc7146c00aed373aff79666a1a1e897cd.tar.gz",
-            .hash = "12205e35c1f8e12a3e0ace2ba1b2000c0dbdbb25ddd3bb14bb90b10091056d271b33",
+            .url = "https://github.com/7R35C0/singly_linked_list/archive/41b8640280c4d894194cddf4400cd31490a5141c.tar.gz",
+            .hash = "1220a5b1891b674d554350ef0ff25e0f26805072361f58f8cf49c739e2d73fb6f0d4",
             // .path = "foo",
             // .lazy = false,
         },
