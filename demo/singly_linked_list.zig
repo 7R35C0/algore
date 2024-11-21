@@ -7,7 +7,7 @@
 const std = @import("std");
 const print = std.debug.print;
 
-const SinglyLinkedList = @import("singly_linked_list").SinglyLinkedList;
+const SinglyLinkedList = @import("algore").singly_linked_list.SinglyLinkedList;
 
 pub fn main() !void {
 

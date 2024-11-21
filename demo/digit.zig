@@ -7,12 +7,12 @@
 const std = @import("std");
 const assert = std.debug.assert;
 
-const result = @import("digit").countIterative;
-// const result = @import("digit").countLogarithmic;
-// const result = @import("digit").countLookup;
-// const result = @import("digit").countRecursive;
-// const result = @import("digit").countStringify;
-// const result = @import("digit").countSwitcher;
+const result = @import("algore").digit.countIterative;
+// const result = @import("algore").digit.countLogarithmic;
+// const result = @import("algore").digit.countLookup;
+// const result = @import("algore").digit.countRecursive;
+// const result = @import("algore").digit.countStringify;
+// const result = @import("algore").digit.countSwitcher;
 
 pub fn main() !void {
     //^--------------------------------------------------------------
