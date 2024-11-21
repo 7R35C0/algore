@@ -250,16 +250,6 @@ fn setupRun(b: *std.Build, cfg: Config, mod: *std.Build.Module) void {
             });
             exe.root_module.addImport(cfg.name, mod);
 
-            for (b.available_deps) |dep| {
-                exe.root_module.addImport(dep[0], b.dependency(
-                    dep[0],
-                    .{
-                        .target = cfg.target,
-                        .optimize = cfg.optimize,
-                    },
-                ).module(dep[0]));
-            }
-
             const exe_install = b.addInstallArtifact(
                 exe,
                 .{},
